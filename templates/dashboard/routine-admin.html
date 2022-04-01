@@ -1,0 +1,130 @@
+
+{% extends './base.html' %}
+
+
+{% load static  %}
+
+
+{% block content %}
+{% if user.is_superadmin and user.is_active and user.is_authenticated %}
+<div class="u-content">
+    <div class="u-body">
+
+        <!-- breadcumb-area -->
+        <section class="breadcumb-area card bg-gradient mb-5">
+            <div class="bread-cumb-content card-body d-flex align-items-center">
+                <div class="breadcumb-heading">
+                    <h2 class="text-white">Manage Routine</h2>
+                </div>
+                <div class="breadcumb-image ml-auto">
+                    <img src="{% static 'assets/img/breadcumb-routines.png' %}" alt="">
+                </div>
+            </div>
+        </section>
+        <!-- End breadcumb-area -->
+
+            <div class="card">
+                <header class="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
+                    <a href="{% url 'add_routine' %}" class="btn btn-sm btn-pill btn-outline-light ml-auto">+ Add New</a>
+                </header>
+                <div class="card-body">
+
+                    <div class="container">
+                        {% include '../includes/alert.html' %}
+                    </div>
+
+                    <form action="{% url 'routine' %}" class="es-form mb-5">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <label for="faulty">Faculty</label>
+                                <select  class="" name="faulty">
+                                    <option data-display="Select">Nothing</option>
+                                    {% for faulty in faulties  %}
+                                        <option value="{{faulty.faulty}}">{{faulty.faulty}}</option>
+                                    {% endfor %}    
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label for="semister">Semister</label>
+                                <select  name="semister">
+                                    
+                                    <option data-display="Select">Nothing</option>
+                                
+                                    <option value="1">1</option> 
+                                    <option value="2">2</option> 
+                                    <option value="3">3</option> 
+                                    <option value="4">4</option> 
+                                    <option value="5">5</option> 
+                                    <option value="6">6</option> 
+                                    <option value="7">7</option> 
+                                    <option value="8">8</option> 
+                                
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="day">Day</label>
+                                <select  name="day">
+                                    
+                                    <option data-display="Select">Nothing</option>
+                                
+                                    <option value="sunday">sunaday</option> 
+                                    <option value="monday">monday</option> 
+                                    <option value="tuesday">tuesday</option> 
+                                    <option value="wednesday">wednesday</option> 
+                                    <option value="thursday">thursday</option> 
+                                    <option value="friday">friday</option> 
+                                
+                                </select>
+                            </div>
+                            <div class="col">
+                                <!-- <a href="" class="es-form-btn btn btn-block bg-gradient text-white">View</a> -->
+                                <button class="es-form-btn btn btn-block bg-gradient text-white">View</button>
+                            </div>
+                        </div>
+                    </form> 
+
+
+                    <div class="routines-table-wrap">
+                        <div class="table-responsive table-routines">
+
+                            
+                            {% if day and semister and faculty %}
+                                <h3 style="font-weight: 600;">Day:{{day}}</h3>
+                                <h3 style="font-weight: 600;">Semister:{{semister}}</h3>
+                                <h3 style="font-weight: 600;">Faculty:{{faculty}}</h3>                                
+                            {% endif %}
+                                
+                            <table class="table">
+                                <thead class="bg-gradient">
+                                    <tr>
+                                        <th scope="col" class="text-white text-center">Time</th>
+                                        <th scope="col" class="text-white text-center">Subject</th>
+                                        <th scope="col" class="text-white text-center">Teacher</th>
+                                        <th scope="col" class="text-white text-center">Delete/Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>                       
+                                    {% for routine in routine %}
+                                        <tr>
+                                            <td class="text-center" style="font-weight: 200; font-size: 18px;">{{routine.time}}</td>
+                                            <td class="text-center">{{routine.subject}}</td>
+                                            <td class="text-center">{{routine.teacher.user.first_name}} {{routine.teacher.user.last_name}}</td>
+                                            <td class="text-center"><a href="{% url 'routine_delete' routine.pk %}" class="btn btn-danger">Delete</a> <a class="btn btn-warning" href="{% url 'editroutine' routine.pk routine.semister routine.faulty %}">Edit</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>   
+                        </div>
+                    </div> 
+                </div>
+            </div>    
+        </section>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
+    
+
+
+

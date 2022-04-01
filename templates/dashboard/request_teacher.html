@@ -1,0 +1,100 @@
+{% extends '../dashboard/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+{% if user.is_authenticated and user.is_active and user.is_superadmin %}
+<div class="u-content">
+    <div class="u-body">
+
+        <!-- breadcumb-area -->
+        <section class="breadcumb-area card bg-gradient mb-5">
+            <div class="bread-cumb-content card-body d-flex align-items-center">
+                <div class="breadcumb-heading">
+                    <h2 class="text-white">Manage Admission</h2>
+                </div>
+                <div class="breadcumb-image ml-auto">
+                    <img src="assets/img/breadcumb-manage-attendances.png" alt="">
+                </div>
+            </div>
+        </section>
+        <!-- End breadcumb-area -->
+
+        
+
+        
+        <section class="es-form-area">
+            <div class="card">
+                <header class="card-header bg-gradient border-0 pt-5 pb-5">
+                    <h1 class="text-center text-white">Teacher Request For Adminssion !</h1>
+                </header>
+                <div class="card-body">
+
+                    <div class="attendances-list-wrap mt-5">
+
+                        {% if all_teacher %}
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead class="bg-gradient">
+                                    <tr>
+                                        <th scope="col" class="text-white">Email</th>
+                                        <th scope="col" class="text-white">Student Name</th>
+                                        <th scope="col" class="text-white">Phone Number</th>
+                                        <th scope="col" class="text-white text-center">Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    
+                                    {% for teacher in all_teacher  %}
+                                    {% if teacher.is_emailverified and teacher.is_teacher %}
+                                        <tr>
+                                            <td>{{teacher.email}}</td>
+                                            <td>{{teacher.first_name}} {{teacher.last_name}}</td>
+                                            <td>{{teacher.phone_number}}</td>
+                                            <td class="text-center">
+                                                <!-- <button class="es-am-btn btn btn-outline-success">Admit</button> -->
+                                                <a href="{% url 'teacher_admit' teacher.pk %}" class="es-am-btn btn btn-outline-success" > Admit</a>
+                                            </td>
+                                        </tr> 
+                                        
+                                    {% endif %}
+                                        
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                            <h1>All Teacher Has been Adimit</h1>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>    
+        </section>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <nav aria-label="Bootstrap Pagination" class="mt-5 text-center d-inline-block">
+                    <ul class="pagination mb-0">
+                        <li class="page-item">
+                            <a class="btn btn-outline-danger prev" href="#"><span class="ml-1 d-none d-xl-inline-block">Previous</span></a>
+                        </li>
+                        <li class="page-item">
+                            <a class="btn btn-danger bg-gradient text-white ml-4 mr-4" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="btn btn-outline-danger next" href="#"><span class="mr-1 d-none d-xl-inline-block">Next</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+    
+    
+{% endblock content %}
+    

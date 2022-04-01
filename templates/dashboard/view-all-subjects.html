@@ -1,0 +1,115 @@
+
+
+
+{% extends '../dashboard/base.html' %}
+{% load static  %}
+
+{% block content %}
+{% if user.is_superadmin and user.is_active and user.is_authenticated %}
+<div class="u-content">
+    <div class="u-body">
+
+        <section class="breadcumb-area card bg-gradient mb-5">
+            <div class="bread-cumb-content card-body d-flex align-items-center">
+                <div class="breadcumb-heading">
+                    <h2 class="text-white">All Subjects</h2>
+                </div>
+                <div class="breadcumb-image ml-auto">
+                    <img src="{% static 'assets/img/breadcumb-routines.png' %}" alt="">
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="es-form-area">
+            <div class="card">
+                <header class="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
+                    <h2 class="text-white mb-0 text-right">You can filter subjects by semisters of faculty</h2>
+                </header>
+
+                <div class="container mt-5">
+                    {% include '../includes/alert.html' %}
+                </div>
+
+                <div class="card-body">
+                    <form action="#" class="es-form mb-5">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <label for="faulty">Faculty</label>
+                                <select  class="" name="faulty">
+                                    <option data-display="Select">Nothing</option>
+                                    {% for faulty in faulties  %}
+                                        <option value="{{faulty.faulty}}">{{faulty.faulty}}</option>
+                                    {% endfor %}    
+                                </select>
+                            </div>
+    
+                            <div class="col">
+                                <label for="semister">Semister Or Year</label>
+                                <select  name="semister">
+                                    
+                                    <option data-display="Select">Nothing</option>
+                                
+                                    <option value="first">first</option> 
+                                    <option value="second">second</option> 
+                                    <option value="third">third</option> 
+                                    <option value="fourth">fourth</option> 
+                                    <option value="fifth">fifth</option> 
+                                    <option value="sixth">sixth'</option> 
+                                    <option value="seventh">seventh</option> 
+                                    <option value="eighth">eighth</option> 
+                                    <option value="all">all</option>
+                                
+                                </select>
+                            </div>
+                            <div class="col">
+                                <button class="es-form-btn btn btn-block bg-gradient text-white">View</button>
+                            </div>
+                        </div>
+                    </form> 
+
+                    
+                    {% if subjects %}
+                    <div class="routines-table-wrap">
+                        <div class="table-responsive table-routines">
+                            <table class="table">
+                                <thead class="bg-gradient">
+                                    <tr>
+                                        <th scope="col" class="text-white text-center">Subject</th>
+                                        <th scope="col" class="text-white text-center">Faculty/Semister or Year</th>
+                                        <th scope="col" class="text-white text-center">Delete/Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for subject in subjects %}
+                                            <tr>
+                                                <td class="text-center" style="font-weight: 200; font-size: 18px;">{{subject.subject}}</td>
+                                                <td class="text-center">{{subject.faulty}} 
+                                                {% if subject.semister %}
+                                                    ({{subject.semister}})
+                                                {% endif %}
+                                                    </td>
+                                                <td class="text-center"><a href="{% url 'delete_subject' subject.pk %}" class="btn btn-danger">Delete</a> <a class="btn btn-warning" href="{% url 'edit_subject' subject.pk %}">Edit</a></td>
+                                            </tr>                                     
+                                    {% endfor %}
+                                </tbody>
+                            </table>     
+                        </div>
+                    </div> 
+
+                </div>
+                {% else %}
+                    <div class="container text-center">
+                        <h1>No Subjects added by admin</h1>
+                        <p>Add Subject by click <a href="{% url 'add_subject' %}">here</a></p>
+                    </div>
+                        
+                {% endif %}
+            </div>    
+        </section>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
+    

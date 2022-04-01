@@ -1,0 +1,29 @@
+{% extends 'accounts/accountbase.html' %}
+
+{% load static %}
+
+{% block content %}
+        <div class="registration-form">
+            <form>
+                <div class="form-icon">
+                    <span><i class="icon icon-user"></i></span>
+                </div>
+                <div class="form-group text-center">
+                    <h1 style="font-weight: 600;" class="text-center">Registration</h1>
+                    <p>please enter your parent information !</p>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="first_name" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="last_name" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="phone-number" placeholder="Phone Number" name="phone_number">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-block create-account">Create Account</button>
+                </div>
+            </form>
+        </div>
+{% endblock %}

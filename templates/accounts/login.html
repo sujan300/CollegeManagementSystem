@@ -1,0 +1,34 @@
+{% extends 'accounts/accountbase.html' %}
+
+{% load static %}
+{% block content %}
+
+
+<div class="registration-form">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-icon">
+            <span><i class="icon icon-user"></i></span>
+        </div>
+        <div class="form-group">
+            <h1 style="font-weight: 600;" class="text-center">Student,Teacger both Login</h1>
+        </div>
+
+        <div>
+            {% include './include/alert.html' %}
+        </div>
+        {{form.as_p}}
+        <div class="text-right form-group">
+            <a href="{% url 'forgotpassword' %}">Forgot password ?</a>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-block create-account" value="Login">
+        </div>
+
+        <div class="form-group text-center">
+            <p> register as student account <a href="{% url 'student_register' %}">click</a></p>
+            <p>register as teacher account <a href="{% url 'teacher_register' %}">click</a></p>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,174 @@
+
+
+
+{% extends './base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+{% if user.is_superadmin and user.is_active and user.is_authenticated %}
+<div class="u-content">
+    <div class="u-body">
+        <section class="es-form-area">
+            <div class="card">
+                <header class="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
+                    <h2 class="text-white mb-0">Add New Class</h2>
+                </header>
+
+                <div class="container mt-5">
+                    {% include '../includes/alert.html' %}
+                </div>
+                <div class="container mt-5">
+                    <p> please fill the form for add routine for those semister and faculty</p>
+                    <form action="" class="es-form mb-5">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <label for="faulty">Faculty</label>
+                                <select  class="" name="faulty" required>
+                                    <option data-display="Select" value="">Nothing</option>
+                                    {% for faulty in faulties  %}
+                                        <option value="{{faulty.faulty}}">{{faulty.faulty}}</option>
+                                    {% endfor %}    
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label for="semister">Semister</label>
+                                <select  name="semister"  required>
+                                    <option value="">Nothing</option>
+                                    <option value="1">1</option> 
+                                    <option value="2">2</option> 
+                                    <option value="3">3</option> 
+                                    <option value="4">4</option> 
+                                    <option value="5">5</option> 
+                                    <option value="6">6</option> 
+                                    <option value="7">7</option> 
+                                    <option value="8">8</option> 
+                                </select>
+                            </div>
+
+                            <input type="hidden" value="True" name="value">
+
+
+                            <div class="col">
+                                <label for="day">Day</label>
+                                <select  name="day">
+                                    
+                                    <option data-display="Select">Nothing</option>
+                                
+                                    <option value="sunday">sunaday</option> 
+                                    <option value="monday">monday</option> 
+                                    <option value="tuesday">tuesday</option> 
+                                    <option value="wednesday">wednesday</option> 
+                                    <option value="thursday">thursday</option> 
+                                    <option value="friday">friday</option> 
+                                
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <button class="es-form-btn btn btn-block bg-gradient text-white">Show Form</button>
+                            </div>
+                        </div>
+                    </form> 
+                </div>
+
+
+                
+                {% if routine %}
+                <div class="body-card container mt-5">
+                        <h1>This is the routine of {{semister}} semister and {{day}} day of {{faculty}}</h1>
+                        <div class="routines-table-wrap">
+                            <div class="table-responsive table-routines">
+                                <table class="table">
+                                    <thead class="bg-gradient">
+                                        <tr>
+                                            <th scope="col" class="text-white text-center">Time</th>
+                                            <th scope="col" class="text-white text-center">Subject</th>
+                                            <th scope="col" class="text-white text-center">Day</th>
+                                            <th scope="col" class="text-white text-center">Faculty</th>
+                                            <th scope="col" class="text-white text-center">Delete/Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                
+                                        
+                                        {% for routine in routine %}
+                                            <tr>
+                                                <td class="text-center" style="font-weight: 200; font-size: 18px;">{{routine.time}}</td>
+                                                <td class="text-center">{{routine.subject}}</td>
+                                                <td class="text-center">{{routine.day}}</td>
+                                                <td class="text-center">{{routine.faulty}}</td>
+                                                <td class="text-center"><a href="{% url 'routine_delete' routine.pk %}" class="btn btn-danger">Delete</a> <a class="btn btn-warning" href="{% url 'editroutine' routine.pk routine.semister routine.faulty %}">Edit</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                            
+                
+                                    </tbody>
+                                </table>  
+                            </div>
+                        </div>
+                    </div>
+
+                {% else %}
+                    <div class="body-card container mt-5">
+                        <h1> Routine not available of {{semister}} semister of {{day}} for {{faculty}} </h1>
+                    </div>
+                {% endif %}
+                    
+
+
+
+                {% if form_show %}
+                    <div class="card-body">
+                        <form action="{% url 'add_routine' %}" class="es-form es-add-form mt-5" method="POST" name="routine">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
+
+                                    <label for="subject">Subject</label>
+                                    {{form.subject}}
+                                </div>
+
+                                <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
+                                    <label for="day">Day</label>
+                                    {{form.day}}
+                                </div>
+
+                                <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
+                                    <label for="time">Time</label>
+                                    {{form.time}}
+                                </div>
+
+                                <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
+                                    <label for="class">Faculty</label>
+                                    {{form.faulty}}
+                                </div>
+
+                                <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
+                                    <label for="section">Semister</label>
+                                    {{form.semister}}
+                                </div>
+
+                                <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
+                                    <label for="section">Teacher</label>
+                                    {{form.teacher}}
+                                </div>
+
+                                <div class="col-lg-4 offset-lg-4 col-md-12 text-center">
+                                    <button class="btn btn-danger btn-block bg-gradient border-0 text-white"> Add</button>
+                                </div>
+                            </div>
+                            
+                        </form> 
+                    </div>
+                {% endif %}
+            </div>    
+        </section>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
+    

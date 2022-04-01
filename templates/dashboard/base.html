@@ -1,0 +1,83 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<!-- Head -->
+
+<head>
+    <title>eSchool | Dashboard Template</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <!-- Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Components Vendor Styles -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/font-awesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/jquery-ui.min.css' %}">
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="{% static 'assets/css/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <!-- Custom Charts -->
+    <style>
+        .js-doughnut-chart {
+            width: 70px !important;
+            height: 70px !important;
+        }
+    </style>
+</head>
+<!-- End Head -->
+
+<body>
+
+    <!-- header -->
+    {% include './dashboardmenu/dasgboardmenu.html' %}
+    <!-- header end -->
+
+    <main class="u-main" role="main">
+        <!-- Sidebar -->
+
+        
+        {% if user.is_superadmin and user.is_active and user.is_authenticated %}
+            {% include './dashboardmenu/sidebar.html' %}
+        {% elif user.is_teacher and user.is_active and user.is_authenticated %}
+            <h1> teacher </h1>
+            <a href="{% url 'logout' %}">logout</a>
+        {% elif user.is_student and user.is_active and user.is_authenticated %}
+            {% include '../students/sidemenustudent.html' %}
+        {% else %}
+            <h1>others </h1>
+        {% endif %}
+            
+        <!-- End Sidebar -->
+        
+        {% block content %}
+        <!-- write main logic code here !-->
+        {% endblock content %}
+            
+    </main>
+
+    <!-- Global Vendor -->
+    <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/jquery-migrate/jquery-migrate.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/bootstrap.min.js' %}"></script>
+
+    <!-- Plugins -->
+    <script src="{% static 'assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/chart.js/dist/Chart.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-ui.min.js' %}"></script>
+    <!-- Initialization  -->
+    <script src="{% static 'assets/js/sidebar-nav.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard-page-scripts.js' %}"></script>
+    <!--<script src="assets/js/scripts.js"></script>-->
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends '../dashboard/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="u-content">
+    <div class="u-body">
+
+        <!-- breadcumb-area -->
+        <section class="breadcumb-area card bg-gradient mb-5">
+            <div class="bread-cumb-content card-body d-flex align-items-center">
+                <div class="breadcumb-heading">
+                    <h2 class="text-white">Today Routine</h2>
+                </div>
+                <div class="breadcumb-image ml-auto">
+                    <img src="{% static 'assets/img/breadcumb-routines.png' %}" alt="">
+                </div>
+            </div>
+        </section>
+        <!-- End breadcumb-area -->
+
+            <div class="card">
+                <header class="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
+                    <a href="{% url 'add_routine' %}" class="btn btn-sm btn-pill btn-outline-light ml-auto">+ Add New</a>
+                </header>
+                <div class="card-body">
+
+                    <div class="container">
+                        {% include '../includes/alert.html' %}
+                    </div>
+
+
+                    <div class="routines-table-wrap">
+                        <div class="table-responsive table-routines">
+                            <h3 style="font-weight: 600;">Day:{{day}}</h3>
+                            <h3 style="font-weight: 600;">Semister:{{semister}}</h3>
+                            <h3 style="font-weight: 600;">Faculty:{{faculty}}</h3>
+                            <table class="table">
+                                <thead class="bg-gradient">
+                                    <tr>
+                                        <th scope="col" class="text-white text-center">Time</th>
+                                        <th scope="col" class="text-white text-center">Subject</th>
+                                        <th scope="col" class="text-white text-center">Teacher</th>
+                                        <th scope="col" class="text-white text-center">Semister</th>
+                                    </tr>
+                                </thead>
+                                <tbody>                       
+                                    {% for routine in routine %}
+                                        <tr>
+                                            <td class="text-center" style="font-weight: 200; font-size: 18px;">{{routine.time}}</td>
+                                            <td class="text-center">{{routine.subject}}</td>
+                                            <td class="text-center">{{routine.teacher.user.first_name}} {{routine.teacher.user.last_name}}</td>
+                                            <td class="text-center">{{routine.semister}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>   
+                        </div>
+                    </div> 
+                </div>
+            </div>    
+        </section>
+    </div>
+</div>
+{% endblock content %}
+    

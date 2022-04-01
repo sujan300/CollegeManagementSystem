@@ -1,0 +1,63 @@
+
+
+
+{% extends '../dashboard/base.html' %}
+
+
+{% load static  %}
+
+
+
+
+{% block content %}
+
+{% if user.is_superadmin and user.is_active and user.is_authenticated %}
+<div class="u-content">
+    <div class="u-body">
+        <section class="es-form-area">
+            <div class="card">
+                <header class="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
+                    <h2 class="text-white mb-0 text-right">View all Faculty</h2>
+                </header>
+                <div class="container mt-5">
+                    {% include '../includes/alert.html' %}
+                </div>
+
+                {% if faculty %}
+                    <div class="body-card container mt-5">
+                        <div class="routines-table-wrap">
+                            <div class="table-responsive table-routines">
+                                <table class="table">
+                                    <thead class="bg-gradient">
+                                        <tr>
+                                            <th scope="col" class="text-white text-center">Faculty</th>
+                                            <th scope="col" class="text-white text-center">Delete/Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for faculty in faculty %}
+                                            <tr>
+                                                <td class="text-center" style="font-weight: 400; font-size: 23px;">{{faculty.faulty}}</td>
+                                                <td class="text-center"><a href="{% url 'delete_faculty' faculty.pk %}" class="btn btn-danger">Delete</a> <a class="btn btn-warning" href="{% url 'edit_faculty' faculty.pk %}">Edit</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>  
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                <div class="container text-center">
+                    <h1>No Faculty </h1>
+                    <p>Add Faculty by click <a href="{% url 'add_faculty' %}">here</a></p>
+                </div>
+                
+                {% endif %}
+            </div>    
+        </section>
+
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
+    

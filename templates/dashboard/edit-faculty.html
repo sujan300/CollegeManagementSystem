@@ -1,0 +1,49 @@
+
+
+
+{% extends '../dashboard/base.html' %}
+
+
+{% load static  %}
+
+
+{% block content %}
+{% if user.is_superadmin and user.is_active and user.is_authenticated %}
+<div class="u-content">
+    <div class="u-body">
+
+        
+
+        
+        <section class="es-form-area">
+            <div class="card">
+                <header class="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
+                    <h2 class="text-white mb-0">Edit Faculty</h2>
+                </header>
+                <div class="container mt-5">
+                    {% include '../includes/alert.html' %}
+                </div>
+
+                <div class="card-body">
+                    <form action="" class="es-form es-add-form" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
+                                <label for="title">Faculty Name</label>
+                                {{form.faulty}}
+                            </div>
+                            <div class="col-lg-4 offset-lg-4 col-md-12 text-center">
+                                <button class="btn btn-danger btn-block bg-gradient border-0 text-white" >Update</button>       
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>    
+        </section>
+
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
+    

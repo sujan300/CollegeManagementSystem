@@ -1,0 +1,28 @@
+{% extends 'accounts/accountbase.html' %}
+
+{% load static %}
+
+{% block content %}
+        <div class="registration-form">
+            <form action="{% url 'student_register' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-icon">
+                    <span><i class="icon icon-user"></i></span>
+                </div>
+                <div class="form-group">
+                    <h1 style="font-weight: 600;" class="text-center">Student Registration</h1>
+                </div>
+
+                {% csrf_token %}
+
+                {{form.as_p}}
+                <div class="form-group">
+                    <input type="submit" class="btn btn-block create-account" value="Register as Student">
+                </div>
+
+                <div class="form-group text-center">
+                    <p> If you have already  an account <a href="{% url 'login' %}">login</a></p>
+                </div>
+            </form>
+        </div>
+{% endblock %}

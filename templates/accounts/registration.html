@@ -1,0 +1,46 @@
+{% extends 'accounts/accountbase.html' %}
+
+{% load static %}
+
+{% block content %}
+        <div class="registration-form">
+            <form>
+                <div class="form-icon">
+                    <span><i class="icon icon-user"></i></span>
+                </div>
+                <div class="form-group">
+                    <h1 style="font-weight: 600;" class="text-center">Registration</h1>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="first_name" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="last_name" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="email" placeholder="Email" name="email">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="phone-number" placeholder="Phone Number" name="phone_number">
+                </div>
+    
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="address" placeholder="Address" name="address">
+                </div>
+    
+                <div class="form-group">
+                    <input type="password" class="form-control item" id="password" placeholder="Password">
+                </div>
+    
+                <div class="form-group">
+                    <input type="password" class="form-control item" id="re_password" placeholder="Password (Again)" name="re_password">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-block create-account">Next</button>
+                </div>
+                <div class="form-group text-center">
+                    <p> If you have already  an account <a href="{% url 'login' %}">login</a></p>
+                </div>
+            </form>
+        </div>
+{% endblock %}
